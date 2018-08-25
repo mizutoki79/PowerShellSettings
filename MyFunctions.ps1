@@ -4,16 +4,31 @@ if (Test-Path -Path Alias:cd) {
 function cd {
     param (
         [string]
-        $Path
+        $Path,
+        [string]
+        $LiteralPath,
+        [switch]
+        $PassThru,
+        [string]
+        $StackName
     )
     begin {
-        if (($Path.Length -gt 0) -and (Test-Path -Path $Path)) {
-            Push-Location -Path .
+        if ((($Path.Length -gt 0) -and (Test-Path -Path $Path) `
+                    -and [bool](Compare-Object -ReferenceObject (Get-Location).Path -DifferenceObject (Resolve-Path -Path $Path).Path)) `
+                -or ($Path.Length -eq 0 `
+                    -and [bool](Compare-Object -ReferenceObject (Get-Location).Path -DifferenceObject $env:USERPROFILE))) {
+            Push-Location
         }
     }
     process {
         if ($Path.Length -gt 0) {
-            Set-Location -Path $Path
+            Set-Location -Path $Path -PassThru $PassThru
+        }
+        elseif ($LiteralPath.Length -gt 0) {
+            Set-Location -LiteralPath $LiteralPath -PassThru $PassThru
+        }
+        elseif ($StackName.Length -gt 0) {
+            Set-Location -PassThru -StackName $StackName
         }
         else {
             Set-Location -Path $env:USERPROFILE
