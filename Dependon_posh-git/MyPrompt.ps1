@@ -42,7 +42,7 @@ function global:prompt {
                 }
             }
         }
-        $prompt = Write-Prompt -Object $promptCurrentDateTime -BackgroundColor ([System.ConsoleColor]::DarkMagenta) -ForegroundColor ([System.ConsoleColor]:: White)
+        $prompt = Write-Prompt -Object $promptCurrentDateTime -BackgroundColor ([System.ConsoleColor]::DarkGray) -ForegroundColor ([System.ConsoleColor]::White)
         $prompt += Write-Prompt -Object ' '
         $prompt += Write-Prompt -Object $promptPath -ForegroundColor ([System.ConsoleColor]::Green) 
         $prompt += Write-Prompt -Object "`nPS"
@@ -57,6 +57,6 @@ function global:prompt {
     else {
         $prompt = Write-Prompt -Object 'PS'
     }
-    $global:LASTEXITCODE = $realLASTEXITCODE
     if ($prompt) {"$prompt> "} else {"> "}
+    $global:LASTEXITCODE = $realLASTEXITCODE
 }
