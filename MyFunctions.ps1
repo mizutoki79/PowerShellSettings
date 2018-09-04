@@ -22,13 +22,28 @@ function cd {
     }
     process {
         if ($Path.Length -gt 0) {
-            Set-Location -Path $Path -PassThru $PassThru
+            if ($PassThru) {
+                Set-Location -Path $Path -PassThru $PassThru
+            }
+            else {
+                Set-Location -Path $Path
+            }
         }
         elseif ($LiteralPath.Length -gt 0) {
-            Set-Location -LiteralPath $LiteralPath -PassThru $PassThru
+            if ($PassThru) {
+                Set-Location -LiteralPath $LiteralPath -PassThru $PassThru
+            }
+            else {
+                Set-Location -LiteralPath $LiteralPath
+            }
         }
         elseif ($StackName.Length -gt 0) {
-            Set-Location -PassThru -StackName $StackName
+            if ($PassThru) {
+                Set-Location -PassThru -StackName $StackName
+            }
+            else {
+                Set-Location -StackName $StackName
+            }
         }
         else {
             Set-Location -Path $env:USERPROFILE
