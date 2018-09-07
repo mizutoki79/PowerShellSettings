@@ -13,10 +13,11 @@ function cd {
         $StackName
     )
     begin {
-        if ((($Path.Length -gt 0) -and (Test-Path -Path $Path) `
-                    -and [bool](Compare-Object -ReferenceObject (Get-Location).Path -DifferenceObject (Resolve-Path -Path $Path).Path)) `
-                -or ($Path.Length -eq 0 `
-                    -and [bool](Compare-Object -ReferenceObject (Get-Location).Path -DifferenceObject $env:USERPROFILE))) {
+        if ((Test-Path -Path (Get-Location)) `
+                -and ((($Path.Length -gt 0) -and (Test-Path -Path $Path) `
+                        -and [bool](Compare-Object -ReferenceObject (Get-Location).Path -DifferenceObject (Resolve-Path -Path $Path).Path)) `
+                    -or ($Path.Length -eq 0 `
+                        -and [bool](Compare-Object -ReferenceObject (Get-Location).Path -DifferenceObject $env:USERPROFILE)))) {
             Push-Location
         }
     }
