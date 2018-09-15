@@ -26,5 +26,5 @@ if (Get-Module -Name $moduleName) {
     Get-ChildItem -Path *$moduleName* -Recurse -Include *.ps1 | ForEach-Object {& $_.FullName}
 }
 
-Remove-Variable -Name moduleName
+Remove-Variable -Name moduleName, poshGitModule
 Pop-Location

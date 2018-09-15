@@ -1,4 +1,4 @@
-if ([System.Environment]::OSVersion.Platform.ToString().Contains('Win')) {
+if ($IsWindows) {
     chcp 65001
 }
 Set-PSReadlineOption -BellStyle Visual
