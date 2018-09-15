@@ -6,7 +6,7 @@ function global:prompt {
     # # Reset color, which can be messed up by Enable-GitColors
     # $Host.UI.RawUI.ForegroundColor = $GitPromptSettings.DefaultForegroundColor
     $promptCurrentDateTime = "$(Get-Date -Format 'MM/dd HH:mm:ss')"
-    $promptPath = (Get-Location).Path.Trim('\').Replace($env:USERPROFILE, '~')
+    $promptPath = (Get-Location).Path.Trim('\').Replace($env:HOME, '~')
     $PathLeaf = [System.Math]::Min($promptPath.Length, $(Split-Path -Path $promptPath -Leaf).Length)
     $currentRawUI = (Get-Host).ui.RawUI
     $promptLimitLength = [System.Math]::Min($currentRawUI.BufferSize.Width, $currentRawUI.WindowSize.Width)
