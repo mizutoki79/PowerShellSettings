@@ -42,10 +42,32 @@ function global:prompt {
                 }
             }
         }
-        $prompt = Write-Prompt -Object $promptCurrentDateTime -BackgroundColor ([System.ConsoleColor]::DarkGray) -ForegroundColor ([System.ConsoleColor]::White)
+
+        if ($IsMacOS) {
+            $osName = 'mac'
+        }
+        elseif ($IsLinux) {
+            $osName = screenfetch -n | Where-Object {$_.Contains('OS')} | ForEach-Object {$_.Split() | Select-Object -Index 2}
+        }
+        else {
+            $osName = 'Other'
+        }
+        $osColor = switch ($osName) {
+            'Debian' { [System.ConsoleColor]::DarkRed }
+            'Fedora' { [System.ConsoleColor]::Blue }
+            'Kali' { [System.ConsoleColor]::DarkBlue }
+            'OpenSUSE' { [System.ConsoleColor]::DarkGreen }
+            'Ubuntu' { [System.ConsoleColor]::Red }
+            Default { [System.ConsoleColor]::DarkGray }
+        }
+        
+        $prompt = Write-Prompt -Object $promptCurrentDateTime -BackgroundColor $osColor -ForegroundColor ([System.ConsoleColor]::White)
         $prompt += Write-Prompt -Object ' '
-        $prompt += Write-Prompt -Object $promptPath -ForegroundColor ([System.ConsoleColor]::Green) 
-        $prompt += Write-Prompt -Object "`nPS"
+        $prompt += Write-Prompt -Object $promptPath, "`n" -ForegroundColor ([System.ConsoleColor]::Green) 
+        if (-not $IsWindows) {
+            $prompt += Write-Prompt -Object "$osName " -ForegroundColor $osColor
+        }
+        $prompt += Write-Prompt -Object "PS"
         if ($promptLimitLength -gt 30) {
             $prompt += Write-VcsStatus
         }
