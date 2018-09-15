@@ -18,6 +18,7 @@ if (-not (Get-Module -Name $moduleName)) {
             throw "Failed to import posh-git."
         }
     }
+    Remove-Variable -Name poshGitModule
 }
 # If module is installed in a default location ($env:PSModulePath),
 # use this instead (see about_Modules for more information):
@@ -26,5 +27,5 @@ if (Get-Module -Name $moduleName) {
     Get-ChildItem -Path *$moduleName* -Recurse -Include *.ps1 | ForEach-Object {& $_.FullName}
 }
 
-Remove-Variable -Name moduleName, poshGitModule
+Remove-Variable -Name moduleName
 Pop-Location
