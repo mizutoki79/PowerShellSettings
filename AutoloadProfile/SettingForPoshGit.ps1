@@ -24,7 +24,7 @@ if (-not (Get-Module -Name $moduleName)) {
 # use this instead (see about_Modules for more information):
 # Import-Module posh-git
 if (Get-Module -Name $moduleName) {
-    Get-ChildItem -Path *$moduleName* -Recurse -Include *.ps1 | ForEach-Object {& $_.FullName}
+    Get-ChildItem -LiteralPath .\Dependency -Recurse -Include $moduleName | Get-ChildItem | ForEach-Object {& $_.FullName}
 }
 
 Remove-Variable -Name moduleName
