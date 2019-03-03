@@ -3,3 +3,5 @@ Scripts
 Modules
 powershell.config.json
 Microsoft.VSCode_profile.ps1
+AutoloadProfile/MyVariables.ps1
+*~
