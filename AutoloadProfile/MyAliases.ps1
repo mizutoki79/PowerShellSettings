@@ -4,7 +4,8 @@ Set-Alias -Name wrh -Value Write-Host
 Set-Alias -Name cro -Value Compare-Object
 Set-Alias -Name sco -Value Select-Object
 Set-Alias -Name jpa -Value Join-Path
-Get-Verb | ForEach-Object {New-Alias -Name ($_.Verb + '-') -Value Out-Null -Description 'TAB補完用ダミーalias' -Option ReadOnly -ErrorAction SilentlyContinue}
+Set-Alias -Name curl -Value $env:SCOOP\apps\curl\current\bin\curl.exe
+Get-Verb | ForEach-Object {$verb = $_.Verb + '-'; New-Alias -Name $verb -Value Out-Null -Description 'TAB補完用ダミーalias' -Option ReadOnly -ErrorAction SilentlyContinue}
 if (Test-Path -Path Env:\USERAPPLICATIONS) {
     $binaryPath = Join-Path -Path $env:USERAPPLICATIONS -ChildPath 'vim81-kaoriya-win64' -AdditionalChildPath 'vim.exe'
     if (Test-Path -Path $binaryPath) {
