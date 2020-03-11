@@ -1,7 +1,8 @@
 $modules =
     'posh-git',
     'WintellectPowerShell',
-    'oh-my-posh'
+    'oh-my-posh',
+    'AWSPowerShell.NetCore'
 
 Push-Location -Path $autoloadDir
 $subDirectory = '.\Dependency'
